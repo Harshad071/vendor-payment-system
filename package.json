@@ -1,9 +1,10 @@
 {
-  "name": "vendor-payment-system",
+  "name": "vendor-payment-system-backend",
   "version": "1.0.0",
   "scripts": {
-    "install": "npm install",
-    "build": "next build",
-    "start": "next start"
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "migration:run": "npm run build && typeorm migration:run",
+    "seed": "ts-node ./src/seeder.ts"
   }
 }
