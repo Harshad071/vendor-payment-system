@@ -6,7 +6,7 @@ import { Vendor } from '../vendors/entities/vendor.entity';
 import { Payment } from '../payments/entities/payment.entity';
 import dayjs from 'dayjs';
 
-interface AgingItem {
+export interface AgingItem {
   poNumber: string;
   vendorName: string;
   poDate: Date;

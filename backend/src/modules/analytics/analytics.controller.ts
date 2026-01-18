@@ -5,7 +5,7 @@ import {
   ApiOperation,
   ApiResponse,
 } from '@nestjs/swagger';
-import { AnalyticsService } from './analytics.service';
+import { AnalyticsService, AgingItem } from './analytics.service';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 
 @ApiTags('Analytics')
