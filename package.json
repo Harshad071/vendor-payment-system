@@ -8,6 +8,6 @@
     "seed": "npx ts-node ./src/seeder.ts"
   },
   "devDependencies": {
-    "@nestjs/cli": "^11.1.12"
+    "@nestjs/cli": "^10.0.0"
   }
 }
