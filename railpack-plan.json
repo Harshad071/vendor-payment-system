@@ -1,5 +1,8 @@
 {
   "version": "0.1",
+  "copy": [
+    "backend/**"
+  ],
   "build": {
     "install": "cd backend && pnpm install",
     "build": "cd backend && pnpm run build"
