@@ -28,7 +28,7 @@ export class AuthService {
       });
 
       return {
-        accessToken: token,
+        access_token: token,
         user: DEMO_USER,
         expiresIn: '24h',
       };

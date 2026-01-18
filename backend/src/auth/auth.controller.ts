@@ -23,7 +23,7 @@ export class AuthController {
     description: 'Login successful',
     schema: {
       properties: {
-        accessToken: { type: 'string' },
+        access_token: { type: 'string' },
         user: { type: 'object' },
         expiresIn: { type: 'string' },
       },
