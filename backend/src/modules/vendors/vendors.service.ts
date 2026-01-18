@@ -113,7 +113,7 @@ export class VendorsService {
     let totalPaid = 0;
 
     purchaseOrders?.purchaseOrders?.forEach((po) => {
-      totalOutstanding += Number(po.totalAmount) - (po.getOutstandingAmount ? 0 : 0);
+      totalOutstanding += Number(po.totalAmount) - (po.getOutstandingAmount ? po.getOutstandingAmount() : 0);
       const paid = po.payments?.reduce((sum, p) => sum + Number(p.amountPaid), 0) || 0;
       totalPaid += paid;
     });

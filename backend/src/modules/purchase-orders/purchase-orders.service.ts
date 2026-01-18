@@ -11,7 +11,7 @@ import { CreatePurchaseOrderDto } from './dtos/create-purchase-order.dto';
 import { UpdatePOStatusDto } from './dtos/update-po-status.dto';
 import { VendorsService } from '../vendors/vendors.service';
 import { VendorStatus } from '../vendors/entities/vendor.entity';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { Like } from 'typeorm';
 
 @Injectable()

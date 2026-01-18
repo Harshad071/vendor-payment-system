@@ -4,7 +4,16 @@ import { Repository } from 'typeorm';
 import { PurchaseOrder } from '../purchase-orders/entities/purchase-order.entity';
 import { Vendor } from '../vendors/entities/vendor.entity';
 import { Payment } from '../payments/entities/payment.entity';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
+
+interface AgingItem {
+  poNumber: string;
+  vendorName: string;
+  poDate: Date;
+  dueDate: Date;
+  outstanding: number;
+  daysOverdue: number;
+}
 
 @Injectable()
 export class AnalyticsService {
@@ -57,7 +66,7 @@ export class AnalyticsService {
       .getMany();
 
     const today = dayjs();
-    const agingBuckets = {
+    const agingBuckets: Record<string, AgingItem[]> = {
       current: [], // 0-30 days overdue
       thirtyPlus: [], // 31-60 days
       sixtyPlus: [], // 61-90 days

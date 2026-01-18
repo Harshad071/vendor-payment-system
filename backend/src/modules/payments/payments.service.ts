@@ -8,7 +8,7 @@ import { Repository, DataSource, Like } from 'typeorm';
 import { Payment } from './entities/payment.entity';
 import { CreatePaymentDto } from './dtos/create-payment.dto';
 import { PurchaseOrdersService } from '../purchase-orders/purchase-orders.service';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class PaymentsService {

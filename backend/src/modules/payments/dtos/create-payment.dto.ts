@@ -6,8 +6,8 @@ import {
   IsEnum,
   IsOptional,
   IsString,
-  Type,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { PaymentMethod } from '../entities/payment.entity';
 import { ApiProperty } from '@nestjs/swagger';
 

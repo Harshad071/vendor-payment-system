@@ -4,7 +4,7 @@ import { PurchaseOrder, POStatus } from '../../modules/purchase-orders/entities/
 import { PurchaseOrderItem } from '../../modules/purchase-orders/entities/purchase-order-item.entity';
 import { Payment, PaymentMethod } from '../../modules/payments/entities/payment.entity';
 import { v4 as uuid } from 'uuid';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 async function seed() {
   try {

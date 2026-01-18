@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-interface User {
+export interface User {
   id: string;
   username: string;
   email: string;
