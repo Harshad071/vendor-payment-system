@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Vendor } from './entities/vendor.entity';
 import { CreateVendorDto } from './dtos/create-vendor.dto';
@@ -6,11 +7,10 @@ import { UpdateVendorDto } from './dtos/update-vendor.dto';
 
 @Injectable()
 export class VendorsService {
-  private vendorRepository: Repository<Vendor>;
-
-  constructor(vendorRepository: Repository<Vendor>) {
-    this.vendorRepository = vendorRepository;
-  }
+  constructor(
+    @InjectRepository(Vendor)
+    private readonly vendorRepository: Repository<Vendor>,
+  ) {}
 
   async create(createVendorDto: CreateVendorDto, userId: string): Promise<Vendor> {
     // Check for existing vendor with same name or email
