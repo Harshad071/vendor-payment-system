@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 @Injectable()
 export class PaymentsService {
   constructor(
+    @InjectRepository(Payment)
     private paymentRepository: Repository<Payment>,
     private poService: PurchaseOrdersService,
     private dataSource: DataSource,
