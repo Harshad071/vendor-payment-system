@@ -33,5 +33,5 @@ export const AppDataSource = new DataSource({
   entities: [Vendor, PurchaseOrder, PurchaseOrderItem, Payment],
   migrations: ['src/database/migrations/*.ts'],
   synchronize: true,
-  logging: process.env.NODE_ENV === 'development',
+  logging: true,
 });

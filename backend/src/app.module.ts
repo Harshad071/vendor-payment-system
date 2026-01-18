@@ -44,7 +44,7 @@ function parseDatabaseUrl(databaseUrl: string) {
           }),
       entities: [Vendor, PurchaseOrder, PurchaseOrderItem, Payment],
       synchronize: true,
-      logging: process.env.NODE_ENV === 'development',
+      logging: true,
     }),
     AuthModule,
     VendorsModule,
