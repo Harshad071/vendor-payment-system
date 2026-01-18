@@ -2,9 +2,12 @@
   "name": "vendor-payment-system-backend",
   "version": "1.0.0",
   "scripts": {
-    "build": "nest build",
+    "build": "npx nest build",
     "start": "node dist/main.js",
-    "migration:run": "npm run build && typeorm migration:run",
-    "seed": "ts-node ./src/seeder.ts"
+    "migration:run": "npm run build && npx typeorm migration:run",
+    "seed": "npx ts-node ./src/seeder.ts"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.1.12"
   }
 }
