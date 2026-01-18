@@ -1,0 +1,10 @@
+{
+  "version": "0.1",
+  "build": {
+    "install": "cd backend && pnpm install",
+    "build": "cd backend && pnpm run build"
+  },
+  "deploy": {
+    "start": "cd backend && pnpm run start"
+  }
+}
