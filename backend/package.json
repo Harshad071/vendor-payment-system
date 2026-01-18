@@ -5,6 +5,7 @@
   "author": "Harshad Jadhav",
   "license": "MIT",
   "scripts": {
+    "install": "npm install",
     "start": "nest start",
     "dev": "nest start --watch",
     "build": "nest build",

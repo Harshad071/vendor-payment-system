@@ -1,0 +1,9 @@
+{
+  "name": "vendor-payment-system",
+  "version": "1.0.0",
+  "scripts": {
+    "install": "npm install",
+    "build": "next build",
+    "start": "next start"
+  }
+}
