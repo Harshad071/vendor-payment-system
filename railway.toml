@@ -2,4 +2,4 @@
 root = "backend"
 
 [deploy]
-startCommand = "pnpm run start"
+startCommand = "npm run start"
