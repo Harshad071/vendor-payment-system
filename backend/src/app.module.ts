@@ -22,6 +22,7 @@ function parseDatabaseUrl(databaseUrl: string) {
   const host = parsed.hostname;
   const port = parseInt(parsed.port || '3306');
   const database = parsed.pathname.slice(1); // remove leading /
+  console.log('Parsed DATABASE_URL:', { username, host, port, database, password: password ? 'set' : 'not set' });
   return { username, password, host, port, database };
 }
 
