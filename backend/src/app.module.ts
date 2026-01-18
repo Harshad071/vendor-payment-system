@@ -42,7 +42,7 @@ function parseDatabaseUrl(databaseUrl: string) {
             database: process.env.DB_NAME || 'vendor_payment_system',
           }),
       entities: [Vendor, PurchaseOrder, PurchaseOrderItem, Payment],
-      synchronize: false,
+      synchronize: true,
       logging: process.env.NODE_ENV === 'development',
     }),
     AuthModule,
