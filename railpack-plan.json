@@ -8,6 +8,6 @@
     "build": "cd backend && pnpm run build && cp src/database/ormconfig.ts dist/database/ormconfig.ts"
   },
   "deploy": {
-    "start": "cd backend && npx typeorm migration:run -d src/database/ormconfig.ts && pnpm run start"
+    "start": "cd backend && npx typeorm migration:run -d dist/database/ormconfig.ts && pnpm run start"
   }
 }

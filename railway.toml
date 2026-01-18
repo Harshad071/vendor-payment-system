@@ -2,4 +2,4 @@
 root = "backend"
 
 [deploy]
-startCommand = "npx typeorm migration:run -d src/database/ormconfig.ts && npm run start"
+startCommand = "npx typeorm migration:run -d dist/database/ormconfig.ts && npm run start"
