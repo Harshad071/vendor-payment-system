@@ -1,5 +1,10 @@
 {
   "name": "vendor-payment-system",
   "private": true,
-  "workspaces": ["backend"]
+  "workspaces": ["backend"],
+  "scripts": {
+    "start": "cd backend && npm run start",
+    "build": "cd backend && npm run build",
+    "dev": "cd backend && npm run dev"
+  }
 }
