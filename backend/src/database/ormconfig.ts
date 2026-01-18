@@ -8,17 +8,15 @@ import { Payment } from '../modules/payments/entities/payment.entity';
 dotenv.config();
 
 // Function to parse DATABASE_URL
-function parseDatabaseUrl(url: string) {
-  const regex = /^mysql:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)$/;
-  const match = url.match(regex);
-  if (!match) throw new Error('Invalid DATABASE_URL format');
-  return {
-    username: match[1],
-    password: match[2],
-    host: match[3],
-    port: parseInt(match[4]),
-    database: match[5],
-  };
+function parseDatabaseUrl(databaseUrl: string) {
+  const url = require('url');
+  const parsed = url.parse(databaseUrl);
+  if (parsed.protocol !== 'mysql:') throw new Error('Invalid DATABASE_URL protocol');
+  const [username, password] = parsed.auth.split(':');
+  const host = parsed.hostname;
+  const port = parseInt(parsed.port || '3306');
+  const database = parsed.pathname.slice(1); // remove leading /
+  return { username, password, host, port, database };
 }
 
 export const AppDataSource = new DataSource({
