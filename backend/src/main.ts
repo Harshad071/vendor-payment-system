@@ -4,6 +4,17 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  console.log('Starting application...');
+  console.log('Environment variables:');
+  console.log('PORT:', process.env.PORT);
+  console.log('DB_HOST:', process.env.DB_HOST);
+  console.log('DB_PORT:', process.env.DB_PORT);
+  console.log('DB_USERNAME:', process.env.DB_USERNAME);
+  console.log('DB_PASSWORD:', process.env.DB_PASSWORD ? '***' : 'not set');
+  console.log('DB_NAME:', process.env.DB_NAME);
+  console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'set' : 'not set');
+  console.log('NODE_ENV:', process.env.NODE_ENV);
+
   const app = await NestFactory.create(AppModule);
 
   // Enable CORS

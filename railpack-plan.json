@@ -5,9 +5,9 @@
   ],
   "build": {
     "install": "cd backend && pnpm install",
-    "build": "cd backend && pnpm run build"
+    "build": "cd backend && pnpm run build && cp src/database/ormconfig.ts dist/database/ormconfig.ts"
   },
   "deploy": {
-    "start": "cd backend && pnpm run start"
+    "start": "cd backend && npx typeorm migration:run -d dist/database/ormconfig.js && pnpm run start"
   }
 }
