@@ -18,6 +18,10 @@ export class AuthService {
       expiresIn: '1h',
     };
   }
+
+  validateToken(payload: any) {
+    return { username: payload.username, role: payload.role };
+  }
 }
 
 ;
