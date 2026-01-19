@@ -18,8 +18,11 @@ export interface AgingItem {
 @Injectable()
 export class AnalyticsService {
   constructor(
+    @InjectRepository(PurchaseOrder)
     private poRepository: Repository<PurchaseOrder>,
+    @InjectRepository(Payment)
     private paymentRepository: Repository<Payment>,
+    @InjectRepository(Vendor)
     private vendorRepository: Repository<Vendor>,
   ) {}
 
