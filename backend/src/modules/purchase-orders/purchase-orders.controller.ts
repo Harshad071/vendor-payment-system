@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   Request,
+  Req,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -39,7 +40,7 @@ export class PurchaseOrdersController {
     description: 'Purchase order created successfully',
     type: PurchaseOrder,
   })
-  async create(createPODto: CreatePurchaseOrderDto, req) {
+  async create(@Body() createPODto: CreatePurchaseOrderDto, @Req() req) {
     return this.poService.create(createPODto, req.user.id);
   }
 
@@ -54,21 +55,31 @@ export class PurchaseOrdersController {
     enum: ['Draft', 'Approved', 'Partially Paid', 'Fully Paid'],
   })
   @ApiQuery({ name: 'poNumber', required: false, type: String })
-  async findAll(page = 1, limit = 20, vendorId?: string, status?: string, poNumber?: string) {
+  async findAll(
+    @Query('page') page = 1,
+    @Query('limit') limit = 20,
+    @Query('vendorId') vendorId?: string,
+    @Query('status') status?: string,
+    @Query('poNumber') poNumber?: string,
+  ) {
     return this.poService.findAll(page, limit, vendorId, status, poNumber);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get purchase order details with payment history' })
   @ApiResponse({ status: 200, type: PurchaseOrder })
-  async findOne(id: string) {
+  async findOne(@Param('id') id: string) {
     return this.poService.findById(id);
   }
 
   @Patch(':id/status')
   @ApiOperation({ summary: 'Update purchase order status' })
   @ApiResponse({ status: 200, type: PurchaseOrder })
-  async updateStatus(id: string, updateStatusDto: UpdatePOStatusDto, req) {
+  async updateStatus(
+    @Param('id') id: string,
+    @Body() updateStatusDto: UpdatePOStatusDto,
+    @Req() req,
+  ) {
     return this.poService.updateStatus(id, updateStatusDto, req.user.id);
   }
 }

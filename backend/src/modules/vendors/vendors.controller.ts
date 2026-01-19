@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   Request,
+  Req,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -39,7 +40,7 @@ export class VendorsController {
     description: 'Vendor created successfully',
     type: Vendor,
   })
-  async create(createVendorDto: CreateVendorDto, req) {
+  async create(@Body() createVendorDto: CreateVendorDto, @Req() req) {
     return this.vendorsService.create(createVendorDto, req.user.id);
   }
 
@@ -53,21 +54,30 @@ export class VendorsController {
     enum: ['Active', 'Inactive'],
   })
   @ApiQuery({ name: 'search', required: false, type: String })
-  async findAll(page = 1, limit = 20, status?: string, search?: string) {
+  async findAll(
+    @Query('page') page = 1,
+    @Query('limit') limit = 20,
+    @Query('status') status?: string,
+    @Query('search') search?: string,
+  ) {
     return this.vendorsService.findAll(page, limit, status, search);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get vendor details with payment summary' })
   @ApiResponse({ status: 200, type: Vendor })
-  async findOne(id: string) {
+  async findOne(@Param('id') id: string) {
     return this.vendorsService.getVendorWithPaymentSummary(id);
   }
 
   @Put(':id')
   @ApiOperation({ summary: 'Update vendor information' })
   @ApiResponse({ status: 200, type: Vendor })
-  async update(id: string, updateVendorDto: UpdateVendorDto, req) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateVendorDto: UpdateVendorDto,
+    @Req() req,
+  ) {
     return this.vendorsService.update(id, updateVendorDto, req.user.id);
   }
 }

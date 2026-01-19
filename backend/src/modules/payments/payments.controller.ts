@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   Request,
+  Req,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -38,7 +39,7 @@ export class PaymentsController {
     description: 'Payment recorded successfully',
     type: Payment,
   })
-  async recordPayment(createPaymentDto: CreatePaymentDto, req) {
+  async recordPayment(@Body() createPaymentDto: CreatePaymentDto, @Req() req) {
     return this.paymentsService.recordPayment(createPaymentDto, req.user.id);
   }
 
@@ -49,7 +50,13 @@ export class PaymentsController {
   @ApiQuery({ name: 'poId', required: false, type: String })
   @ApiQuery({ name: 'startDate', required: false, type: String })
   @ApiQuery({ name: 'endDate', required: false, type: String })
-  async findAll(page = 1, limit = 20, poId?: string, startDate?: string, endDate?: string) {
+  async findAll(
+    @Query('page') page = 1,
+    @Query('limit') limit = 20,
+    @Query('poId') poId?: string,
+    @Query('startDate') startDate?: string,
+    @Query('endDate') endDate?: string,
+  ) {
     return this.paymentsService.findAll(
       page,
       limit,
@@ -62,7 +69,7 @@ export class PaymentsController {
   @Get(':id')
   @ApiOperation({ summary: 'Get payment details' })
   @ApiResponse({ status: 200, type: Payment })
-  async findOne(id: string) {
+  async findOne(@Param('id') id: string) {
     return this.paymentsService.findById(id);
   }
 
@@ -70,7 +77,7 @@ export class PaymentsController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Void a payment (soft delete)' })
   @ApiResponse({ status: 200, description: 'Payment voided successfully' })
-  async voidPayment(id: string, req) {
+  async voidPayment(@Param('id') id: string, @Req() req) {
     return this.paymentsService.voidPayment(id, req.user.id);
   }
 }
