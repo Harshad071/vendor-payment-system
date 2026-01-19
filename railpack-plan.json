@@ -5,7 +5,7 @@
   ],
   "build": {
     "install": "cd backend && pnpm install",
-    "build": "cd backend && pnpm run build && cp src/database/ormconfig.ts dist/database/ormconfig.ts"
+    "build": "cd backend && pnpm run build"
   },
   "deploy": {
     "start": "cd backend && pnpm run start"

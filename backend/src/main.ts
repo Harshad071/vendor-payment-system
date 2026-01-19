@@ -4,22 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  console.log('Starting application...');
-  console.log('Environment variables:');
-  console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'set' : 'not set');
-  console.log('PORT:', process.env.PORT);
-  console.log('DB_HOST:', process.env.DB_HOST);
-  console.log('DB_PORT:', process.env.DB_PORT);
-  console.log('DB_USERNAME:', process.env.DB_USERNAME);
-  console.log('DB_PASSWORD:', process.env.DB_PASSWORD ? '***' : 'not set');
-  console.log('DB_NAME:', process.env.DB_NAME);
-  console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'set' : 'not set');
-  console.log('NODE_ENV:', process.env.NODE_ENV);
-
   const app = await NestFactory.create(AppModule);
-
-  // Set global prefix for all routes
-  app.setGlobalPrefix('api');
 
   // Enable CORS
   app.enableCors();
@@ -40,7 +25,6 @@ async function bootstrap() {
     )
     .setVersion('1.0.0')
     .addBearerAuth()
-    .addServer('https://lucid-art.up.railway.app')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

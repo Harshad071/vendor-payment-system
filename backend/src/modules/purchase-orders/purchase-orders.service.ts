@@ -17,9 +17,7 @@ import { Like } from 'typeorm';
 @Injectable()
 export class PurchaseOrdersService {
   constructor(
-    @InjectRepository(PurchaseOrder)
     private poRepository: Repository<PurchaseOrder>,
-    @InjectRepository(PurchaseOrderItem)
     private poItemRepository: Repository<PurchaseOrderItem>,
     private vendorsService: VendorsService,
   ) {}

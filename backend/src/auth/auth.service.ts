@@ -1,47 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-}
-
-// Demo user - for production, implement proper user management
-const DEMO_USER: User = {
-  id: '1',
-  username: 'admin',
-  email: 'admin@vendor-system.local',
-};
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(private readonly jwtService: JwtService) {}
 
   async login(username: string, password: string) {
-    // Simple hardcoded auth - for production, verify against database
-    if (username === 'admin' && password === 'admin123') {
-      const token = this.jwtService.sign({
-        id: DEMO_USER.id,
-        username: DEMO_USER.username,
-        email: DEMO_USER.email,
-      });
-
-      return {
-        access_token: token,
-        user: DEMO_USER,
-        expiresIn: '24h',
-      };
+    // Hardcoded user (as per assignment)
+    if (username !== 'admin' || password !== 'admin123') {
+      throw new UnauthorizedException('Invalid credentials');
     }
 
-    return null;
-  }
+    const payload = {
+      username: 'admin',
+      role: 'admin',
+    };
 
-  validateToken(payload: any): User {
+    const accessToken = this.jwtService.sign(payload);
+
     return {
-      id: payload.id,
-      username: payload.username,
-      email: payload.email,
+      access_token: accessToken,
+      user: {
+        username: 'admin',
+        role: 'admin',
+      },
+      expiresIn: '1d',
     };
   }
 }
