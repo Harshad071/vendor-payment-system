@@ -1,15 +1,18 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dtos/login.dto';
 
-@ApiTags('Authentication')
 @Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
   login(@Body() body: any) {
+    console.log('RAW BODY:', body);
+
+    if (!body) {
+      throw new BadRequestException('Body is undefined');
+    }
+
     const { username, password } = body;
 
     if (!username || !password) {
