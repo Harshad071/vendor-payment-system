@@ -40,7 +40,7 @@ async function bootstrap() {
     )
     .setVersion('1.0.0')
     .addBearerAuth()
-    .addServer('/api')
+    .addServer('https://lucid-art.up.railway.app/api')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

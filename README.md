@@ -4,7 +4,10 @@ A comprehensive backend API for managing vendor payments, purchase orders, and f
 
 ## 🚀 Live Demo
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> efb58096bd0259b410d3fa5948800174594c776a
 **API Base URL**: https://lucid-art.up.railway.app/api/docs
 
 *Note: This is a backend API. For a complete frontend experience, you'll need to build or connect a frontend application.*
@@ -289,4 +292,5 @@ MIT License - see LICENSE file for details
 For issues and questions:
 - Create an issue on GitHub
 - Check the API documentation at `/api/docs`
+
 - Review the Railway deployment logs
