@@ -3,12 +3,13 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Enable JSON body parsing
-  app.use(express.json());
+  app.use(bodyParser.json());
   app.use(express.urlencoded({ extended: true }));
 
   // Enable CORS
