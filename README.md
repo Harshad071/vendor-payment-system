@@ -15,21 +15,26 @@ A comprehensive backend API for managing vendor payments, purchase orders, and a
 ### Prerequisites
 
 - Node.js 18+
+- npm or yarn
 - MySQL database
 
 ### Installation
 
 1. Clone the repository
-2. Install dependencies:
+2. Create MySQL database:
+   ```sql
+   CREATE DATABASE vendor_payment_system;
+   ```
+3. Install dependencies:
    ```bash
    npm install
    ```
-3. Set up environment variables (see .env.example)
-4. Run database migrations:
+4. Set up environment variables (see .env.example)
+5. Run database migrations:
    ```bash
    npm run migration:run
    ```
-5. Start the application:
+6. Start the application:
    ```bash
    npm run start:dev
    ```
@@ -65,6 +70,8 @@ To access protected endpoints, you must first authenticate and obtain a JWT toke
   "expiresIn": "1h"
 }
 ```
+
+**Note:** JWT tokens are valid for 1 hour. After expiry, you'll need to login again.
 
 ### Using the Token
 
@@ -116,7 +123,20 @@ curl -X POST "http://localhost:8080/api/vendors" \
   }'
 ```
 
-**Response:** Returns vendor object with generated `id` (UUID).
+**Response Example:**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "ABC Supplies Ltd",
+  "contactPerson": "John Doe",
+  "email": "john@abc.com",
+  "phone": "+91-9876543210",
+  "paymentTerms": 30,
+  "status": "Active",
+  "createdAt": "2024-01-15T10:00:00Z",
+  "updatedAt": "2024-01-15T10:00:00Z"
+}
+```
 
 ### Step 3: Create a Purchase Order
 
@@ -145,7 +165,35 @@ curl -X POST "http://localhost:8080/api/purchase-orders" \
   }'
 ```
 
-**Response:** Returns PO object with generated `id`, `poNumber`, and calculated `totalAmount`.
+**Response Example:**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440001",
+  "poNumber": "PO-20240115-001",
+  "vendorId": "550e8400-e29b-41d4-a716-446655440000",
+  "poDate": "2024-01-15T00:00:00Z",
+  "totalAmount": 90000,
+  "dueDate": "2024-02-14T00:00:00Z",
+  "status": "Draft",
+  "notes": "Urgent delivery required",
+  "createdAt": "2024-01-15T10:00:00Z",
+  "updatedAt": "2024-01-15T10:00:00Z",
+  "items": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "description": "Office Chairs",
+      "quantity": 10,
+      "unitPrice": 5000
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440003",
+      "description": "Office Tables",
+      "quantity": 5,
+      "unitPrice": 8000
+    }
+  ]
+}
+```
 
 ### Step 4: Record a Payment
 
@@ -237,16 +285,36 @@ The API returns appropriate HTTP status codes:
 - `GET /api/analytics/payment-trends` - Payment trends
 - `GET /api/analytics/dashboard` - Dashboard summary
 
+## Testing
+
+### Using Swagger UI
+
+1. Start the application: `npm run start:dev`
+2. Open `http://localhost:8080/api/docs`
+3. Click "Try it out" on any endpoint
+4. For protected endpoints, first login via `/api/auth/login` and use the returned token
+
+### Using Postman
+
+Import the Postman collection from `backend/postman-collection.json` and set the base URL to your environment.
+
+### Using curl
+
+See the examples in the API Usage Guide above.
+
+**Security Note:** JWT tokens should be kept secret and never exposed in client-side code.
+
 ## Deployment
 
 This application is configured for deployment on Railway with automatic builds from the main branch.
 
 ## Environment Variables
 
+- `DATABASE_URL` - Full database connection string (alternative to individual DB vars)
 - `DB_HOST` - Database host
 - `DB_PORT` - Database port
 - `DB_USERNAME` - Database username
 - `DB_PASSWORD` - Database password
 - `DB_NAME` - Database name
 - `JWT_SECRET` - JWT signing secret
-- `PORT` - Application port (default: 3000)
+- `PORT` - Application port (default: 8080)
