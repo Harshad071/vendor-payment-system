@@ -13,7 +13,7 @@ export class AuthService {
     const payload = { username: 'admin', role: 'ADMIN' };
 
     return {
-      access_token: 'dummy-token',
+      access_token: this.jwtService.sign(payload),
       user: payload,
       expiresIn: '1h',
     };
