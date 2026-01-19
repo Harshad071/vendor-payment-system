@@ -9,10 +9,14 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  @ApiConsumes('application/json')
-  @ApiBody({ type: LoginDto })
   login(@Body() body: any) {
-    return this.authService.login(body.username, body.password);
+    const { username, password } = body;
+
+    if (!username || !password) {
+      throw new BadRequestException('Username or password missing');
+    }
+
+    return this.authService.login(username, password);
   }
 }
 
