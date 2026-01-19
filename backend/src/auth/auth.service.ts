@@ -1,11 +1,14 @@
 import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { LoginDto } from './dtos/login.dto';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  async login(username: string, password: string) {
+  async login(dto: LoginDto) {
+    const { username, password } = dto;
+
     if (!username || !password) {
       throw new BadRequestException('Username and password are required');
     }
