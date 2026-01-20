@@ -26,14 +26,19 @@ export class AnalyticsService {
     private vendorRepository: Repository<Vendor>,
   ) {}
 
-  async getVendorOutstanding() {
-    const vendors = await this.vendorRepository
+  async getVendorOutstanding(vendorId?: string) {
+    const query = this.vendorRepository
       .createQueryBuilder('vendor')
       .leftJoinAndSelect('vendor.purchaseOrders', 'po')
       .leftJoinAndSelect('po.payments', 'payment')
       .where('po.isDeleted = false')
-      .andWhere('payment.id IS NULL OR payment.isDeleted = false')
-      .getMany();
+      .andWhere('payment.id IS NULL OR payment.isDeleted = false');
+
+    if (vendorId) {
+      query.andWhere('vendor.id = :vendorId', { vendorId });
+    }
+
+    const vendors = await query.getMany();
 
     const result = vendors.map((vendor) => {
       let totalPOAmount = 0;
@@ -60,13 +65,18 @@ export class AnalyticsService {
     return result.filter((r) => r.outstanding > 0);
   }
 
-  async getPaymentAging() {
-    const pos = await this.poRepository
+  async getPaymentAging(vendorId?: string) {
+    const query = this.poRepository
       .createQueryBuilder('po')
       .leftJoinAndSelect('po.vendor', 'vendor')
       .leftJoinAndSelect('po.payments', 'payment')
-      .where('po.isDeleted = false')
-      .getMany();
+      .where('po.isDeleted = false');
+
+    if (vendorId) {
+      query.andWhere('po.vendorId = :vendorId', { vendorId });
+    }
+
+    const pos = await query.getMany();
 
     const today = dayjs();
     const agingBuckets: Record<string, AgingItem[]> = {

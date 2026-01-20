@@ -1,9 +1,10 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Query } from '@nestjs/common';
 import {
   ApiTags,
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { AnalyticsService, AgingItem } from './analytics.service';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
@@ -17,22 +18,24 @@ export class AnalyticsController {
 
   @Get('vendor-outstanding')
   @ApiOperation({ summary: 'Get outstanding balance by vendor' })
+  @ApiQuery({ name: 'vendorId', required: false, type: String, description: 'Filter by specific vendor ID' })
   @ApiResponse({
     status: 200,
     description: 'Vendor outstanding balances',
   })
-  async getVendorOutstanding() {
-    return this.analyticsService.getVendorOutstanding();
+  async getVendorOutstanding(@Query('vendorId') vendorId?: string) {
+    return this.analyticsService.getVendorOutstanding(vendorId);
   }
 
   @Get('payment-aging')
   @ApiOperation({ summary: 'Get payment aging report (0-30, 31-60, 61-90, 90+ days)' })
+  @ApiQuery({ name: 'vendorId', required: false, type: String, description: 'Filter by specific vendor ID' })
   @ApiResponse({
     status: 200,
     description: 'Payment aging analysis',
   })
-  async getPaymentAging() {
-    return this.analyticsService.getPaymentAging();
+  async getPaymentAging(@Query('vendorId') vendorId?: string) {
+    return this.analyticsService.getPaymentAging(vendorId);
   }
 
   @Get('payment-trends')
