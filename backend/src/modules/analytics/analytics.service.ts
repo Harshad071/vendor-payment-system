@@ -32,7 +32,7 @@ export class AnalyticsService {
       .leftJoinAndSelect('vendor.purchaseOrders', 'po')
       .leftJoinAndSelect('po.payments', 'payment')
       .where('po.isDeleted = false')
-      .andWhere('payment.isDeleted = false OR payment IS NULL')
+      .andWhere('payment.id IS NULL OR payment.isDeleted = false')
       .getMany();
 
     const result = vendors.map((vendor) => {
